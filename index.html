@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meter Reading</title>
+    <style>
+        body{
+            height: 100vh;
+            margin: 0px;
+            font-family: monospace;
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contanier{
+            display: flex;
+            background: #000;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 20px red;  
+
+        }
+        .contanier-digit{ 
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            background: #000;
+            border: 2px solid red;
+            border-radius: 6px;
+            margin: 0px 2px;
+        }
+        .digit{
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 2rem;
+        }  
+    </style>
+</head>
+<body>
+    <div class="contanier" id="contanier">
+        <div class="contanier-digit"><div class="contnaier-strip"></div></div>
+        <div class="contanier-digit"><div class="contnaier-strip"></div></div>
+        <div class="contanier-digit"><div class="contnaier-strip"></div></div>
+        <div class="contanier-digit"><div class="contnaier-strip"></div></div>
+        <div class="contanier-digit"><div class="contnaier-strip"></div></div>
+    </div>
+    <script>
+        const stripHTML = Array.from ({length:10}, (_, i) => `<div class="digit">${i}</div>`).join('');
+        const strip = document.querySelectorAll('.contnaier-strip');
+        strip.forEach((s) => {
+            s.innerHTML = stripHTML;
+        });
+        let count = 0;
+        function updateContanier(){
+            const str= count.toString().padStart(5, '0');
+            str.split= count.toString().padStart(5, '0');str.split('').forEach((digit, i) => {
+            const y= parseInt(digit) * -50;
+            strip[i].style.transform = `translateY(${y}px)`; 
+            });
+            count = (count + 1) % 100000;
+        }
+        setInterval(updateContanier, 100);
+    </script>     
+</body>
+</html>
